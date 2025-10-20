@@ -1,15 +1,15 @@
 import { ethers } from 'ethers';
 import { createAppKit } from '@reown/appkit';
 import { EthersAdapter } from '@reown/appkit-adapter-ethers';
-import { baseSepolia, optimismSepolia, sepolia } from '@reown/appkit/networks';
+import { celoMainnet, baseMainnet, optimismMainnet } from '@reown/appkit/networks'; // Twoje sieci
 
-// Project config
-const projectId = '3a5538ce9969461166625db3fdcbef8c';
+// Project config – wstaw tutaj swoje dane
+const projectId = 'TWÓJ_PROJECT_ID_TUTAJ';
 const metadata = {
   name: 'dApp GM',
   description: 'dApp to say GM on multiple chains',
-  url: 'https://tobiasztworek.github.io',
-  icons: ['https://avatars.githubusercontent.com/u/179229932'],
+  url: 'https://TWÓJ_URL_TUTAJ',
+  icons: ['https://TWÓJ_ICON_URL_TUTAJ'],
 };
 
 // App state
@@ -25,41 +25,42 @@ let lastTransactionChainId = null; // Track last transaction network
 // UI elements (populated during init)
 let connectBtn, bannerContainer, networksRow;
 
-// Networks
+// ----- Networks -----
 const NETWORKS = [
   {
-    name: 'Base Sepolia',
-    chainId: '0x14a34',
-    contractAddress: '0x714Be7D3D4fB4D52c714b00afFd1F297FD0E023f',
-    rpcUrl: 'https://base-sepolia.rpc.thirdweb.com',
-    explorer: 'https://sepolia.basescan.org/',
+    name: 'Base Mainnet',
+    chainId: '0xa4b1', // Base mainnet chainId
+    contractAddress: '', // wstaw swój kontrakt
+    rpcUrl: 'https://mainnet.base.org', // oficjalny Base RPC
+    explorer: 'https://basescan.org/',
     buttonColor: '#1a46e5',
     logoUrl: 'img/base.jpg',
   },
   {
-    name: 'Ethereum Sepolia',
-    chainId: '0xaa36a7',
-    contractAddress: '0x43ef985e0A520A7331bf93319CE3e676c9FAEbc9',
-    rpcUrl: 'https://rpc.sepolia.org',
-    explorer: 'https://sepolia.etherscan.io/',
-    buttonColor: '#222222',
-    logoUrl: 'img/ether.svg',
+    name: 'Celo Mainnet',
+    chainId: '0xa4ec', // Celo mainnet chainId
+    contractAddress: '', // wstaw swój kontrakt
+    rpcUrl: 'https://forno.celo.org', // oficjalny Celo RPC
+    explorer: 'https://explorer.celo.org/',
+    buttonColor: '#35d07f',
+    logoUrl: 'img/celo.png',
   },
   {
-    name: 'Optimism Sepolia',
-    chainId: '0xaa37dc',
-    contractAddress: '0x0a56E2E236547575b2db6EF7e872cd49bC91A556',
-    rpcUrl: 'https://optimism-sepolia-public.nodies.app',
-    explorer: 'https://testnet-explorer.optimism.io/',
+    name: 'Optimism Mainnet',
+    chainId: '0xa', // Optimism mainnet chainId
+    contractAddress: '', // wstaw swój kontrakt
+    rpcUrl: 'https://mainnet.optimism.io', // oficjalny Optimism RPC
+    explorer: 'https://optimistic.etherscan.io/',
     buttonColor: '#FC0C2C',
     logoUrl: 'img/optimism.svg',
   },
 ];
 
+// ----- GM Contract ABI -----
 const GM_ABI = [
   'function sayGM() external payable',
   'function getGmFeeInEth() view returns (uint256)',
-  // ...existing code...
+  // ...reszta funkcji kontraktu...
 ];
 
 // ----- AppKit lazy init -----
