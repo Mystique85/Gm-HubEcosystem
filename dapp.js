@@ -4,12 +4,12 @@ import { EthersAdapter } from '@reown/appkit-adapter-ethers';
 import { celoMainnet, baseMainnet, optimismMainnet } from '@reown/appkit/networks'; // Twoje sieci
 
 // Project config – wstaw tutaj swoje dane
-const projectId = 'TWÓJ_PROJECT_ID_TUTAJ';
+const projectId = '6a091ed38ed461327e92c207f03cb06f';
 const metadata = {
-  name: 'dApp GM',
-  description: 'dApp to say GM on multiple chains',
-  url: 'https://TWÓJ_URL_TUTAJ',
-  icons: ['https://TWÓJ_ICON_URL_TUTAJ'],
+  name: 'Gm-HubEcosystem',
+  description: 'Multi-chain GM dApp built on Base, Optimism and Celo.',
+  url: 'http://localhost:3000',
+  icons: ['https://raw.githubusercontent.com/tobiasztworek/gm_test2/main/img/base.jpg'],
 };
 
 // App state
@@ -25,35 +25,34 @@ let lastTransactionChainId = null; // Track last transaction network
 // UI elements (populated during init)
 let connectBtn, bannerContainer, networksRow;
 
-// ----- Networks -----
-const NETWORKS = [
-  {
-    name: 'Base Mainnet',
-    chainId: '0xa4b1', // Base mainnet chainId
-    contractAddress: '', // wstaw swój kontrakt
-    rpcUrl: 'https://mainnet.base.org', // oficjalny Base RPC
-    explorer: 'https://basescan.org/',
-    buttonColor: '#1a46e5',
-    logoUrl: 'img/base.jpg',
-  },
-  {
-    name: 'Celo Mainnet',
-    chainId: '0xa4ec', // Celo mainnet chainId
-    contractAddress: '', // wstaw swój kontrakt
-    rpcUrl: 'https://forno.celo.org', // oficjalny Celo RPC
-    explorer: 'https://explorer.celo.org/',
-    buttonColor: '#35d07f',
-    logoUrl: 'img/celo.png',
-  },
-  {
-    name: 'Optimism Mainnet',
-    chainId: '0xa', // Optimism mainnet chainId
-    contractAddress: '', // wstaw swój kontrakt
-    rpcUrl: 'https://mainnet.optimism.io', // oficjalny Optimism RPC
-    explorer: 'https://optimistic.etherscan.io/',
-    buttonColor: '#FC0C2C',
-    logoUrl: 'img/optimism.svg',
-  },
+/// === Networks config (manual definitions) ===
+const baseMainnet = {
+  id: 8453,
+  name: 'Base Mainnet',
+  network: 'base',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: { default: { http: ['https://mainnet.base.org'] } },
+  blockExplorers: { default: { name: 'BaseScan', url: 'https://basescan.org' } },
+};
+
+const optimismMainnet = {
+  id: 10,
+  name: 'Optimism',
+  network: 'optimism',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: { default: { http: ['https://mainnet.optimism.io'] } },
+  blockExplorers: { default: { name: 'Optimism Explorer', url: 'https://optimistic.etherscan.io' } },
+};
+
+const celoMainnet = {
+  id: 42220,
+  name: 'Celo',
+  network: 'celo',
+  nativeCurrency: { name: 'Celo', symbol: 'CELO', decimals: 18 },
+  rpcUrls: { default: { http: ['https://forno.celo.org'] } },
+  blockExplorers: { default: { name: 'Celo Explorer', url: 'https://celoscan.io' } },
+};
+
 ];
 
 // ----- GM Contract ABI -----
